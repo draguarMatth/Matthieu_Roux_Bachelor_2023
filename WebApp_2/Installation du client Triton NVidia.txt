@@ -1,0 +1,24 @@
+Pré-requis :
+	- Python 3 avec pip
+	- docker
+	- interface (invité) en ligne de commande
+
+
+Recommandation : 
+	- Installer le serveur Triton et le client Triton sur des environnements différents ;
+	- créer des environnement Python virtuel ( https://docs.python.org/fr/3/library/venv.html )
+	- mettre à jour tous les paquets présents sur chaque environnement de travail ( pip install --upgrade NomDuPaquet NomDuPaquet NomDu...
+
+	Rq : Le choix des dossiers d'installation vous importe et les commandes décrites restes géréniques.
+
+
+Installation du serveur Triton :
+( Source et guide de la démarche : https://github.com/triton-inference-server/client )
+
+	1) Installation du paquet Triton client avec la prise en charge de tous les protocoles:
+
+		pip install tritonclient [all]
+
+	2) Installation de tous les paquets utiles et nécessaires (les "import" et "from" dans les modules Python 3) pour les requêtes d'inférence vers le serveur Triton NVidia
+
+		pip install paquet1 paquet2 paquet...

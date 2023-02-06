@@ -2,11 +2,11 @@ Pré-requis :
 	- Python 3.6 (minimum) installé ;
 
 	- 1 serveur d'inférence Triton NVidia installé et en service sur le localhost port 8000 (s'il est installé diffèremment
-	il faudra appliquer les bonnes options (voir les options dans quantImage.py) ;
+	il faudra appliquer les bonnes options (voir les options dans quantImage.py) (voir "Installation du serveur Triton NVidia.txt") ;
 
 	- Flask et autres librairies des fichiers .py installés ;
 
-	- Triton client (paquet pip) installé avec l'option [All]
+	- Triton client (paquet pip) (voir "Installation du client Triton NVidia.txt")
 
 	- Navigateur Firefox (n'a pas été évalué sur d'autres navigateurs);
 

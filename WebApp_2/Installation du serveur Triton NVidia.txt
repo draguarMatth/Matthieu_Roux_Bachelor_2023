@@ -1,0 +1,79 @@
+Pré-requis :
+	- Python 3 avec pip
+	- docker
+	- interface (invité) en ligne de commande
+
+
+Recommandation : 
+	- Installer le serveur Triton et le client Triton sur des environnements différents ;
+	- créer des environnement Python virtuel ( https://docs.python.org/fr/3/library/venv.html )
+	- mettre à jour tous les paquets présents sur chaque environnement de travail ( pip install --upgrade NomDuPaquet NomDuPaquet NomDu...
+
+	Rq : Le choix des dossiers d'installation vous importe et les commandes décrites restes géréniques.
+
+
+Installation du serveur Triton :
+( Source et guide de la démarche : https://github.com/triton-inference-server/server/blob/main/docs/getting_started/quickstart.md )
+
+	1) Importer le conteneur Docker Triton nécessaire :
+
+		docker pull nvcr.io/nvidia/tritonserver:22.12-py3
+
+		>>> 
+		    pull du répertoire GitHub du serveur Triton
+		<<<
+
+	2) Se placer dans le dossier qui vient d'être importé :
+
+		cd <chemin_vers_dossier_triton_serveur_crééAvecDockerPull>
+
+	3) Créé le docker du serveur Triton :
+
+		docker -d run  --gpus=all --rm --net=host -v ${PWD}/docs/examples/model_repository:/models --name triton-server nvcr.io/nvidia/tritonserver:22.12-py3 tritonserver --model-repository=/models
+		
+		>>> 
+		    cette ligne de commande, on constate qu’elle ordonne le fonctionnement du conteneur en arrière-plan (-d), 
+			le démarrage (run) du conteneur en imposant d’utiliser tous les GPUs disponibles (--gpus=all), 
+			de supprimer le conteneur (-rm) lorsque qu’une instruction explicite d’arrêt du conteneur est ordonnée (e.g., appui sur les touches « CTRL » + « C »), 
+			d’utiliser le réseau local (--net=host), d’attacher le dossier local « model_repository » à l’intérieur du dossier où l’on se trouve (-v ${PWD}/…/model_repository) 
+			et de nommer ce dossier « models » pour le serveur Triton ; la suite de la commande permet de donner un nom au conteneur (--name <nom_du_conteneur>), 
+			de dire quel conteneur doit être démarré et enfin de dire au serveur que le dossier de référence pour les modèles correspond à notre dossier « models » déclarer plus en avant dans la commande.
+		<<<	
+
+	4) Démarrer le Docker qui vient d'être créé :
+
+		docker start <nom_du_conteneur>
+
+		>>>
+		    Démarre Triton serveur
+		<<<
+
+	5) Tester l'activation (l'écoute) du serveur :
+		>>> il est plus que judicieux de changer d'environnement tout en restant sur le même localhost si on travail en local <<<
+
+		curl -v localhost:8000/v2/health/ready
+
+		>>>
+		    la réponse doit être :
+			HTTP/1.1 200 OK
+		<<<
+
+	6) Démarrer le partage des models :
+
+		- Ouvrir une interface en ligne de commande virtuelle :
+
+			docker exec -ti triton-server bash
+
+		- lancer le changement des modèles (démarrer leur partage) :
+			
+			tritonserver --model-repository=/models
+
+			>>>
+			    chaque modèle doit être notifié "READY"
+			    + vérifier que le backend correspondant au modèle soit bien chargé
+			<<<
+
+	7)
+
+
+	8)

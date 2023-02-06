@@ -17,4 +17,6 @@ Eléments implémentés durant ce travail :
 		- "kheops_studies_recovery.js" (dans "static")
 
 Chaque "readme.txt" présent doit être lu attentivement pour la bonne compréhension et le bon fonctionnement du code implémenté.
-D'autres informations complémentaires être contenu dans les lignes de programmation.
+D'autres informations complémentaires pertinentes peuvent être contenues dans les lignes de programmation.
+
+
