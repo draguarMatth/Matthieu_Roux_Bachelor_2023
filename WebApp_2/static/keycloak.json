@@ -1,0 +1,8 @@
+{
+    "realm": "QuantImage-v2",
+    "auth-server-url": "https://keycloak.ehealth.hevs.ch/auth/",
+    "ssl-required": "none",
+    "resource": "loginConnect",
+    "public-client": true,
+    "confidential-port": 0
+}

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <script src="/static/keycloak.js"></script>
+        <script>
+            //code tiré de https://www.keycloak.org/docs/latest/securing_apps/index.html#_javascript_adapter
+            const keycloak = new Keycloak("/static/keycloak.json");
+            function initKeycloak() {
+                keycloak.init({onLoad: "login-required"}).success(function(authenticated) {
+                }).error(function() {
+                    alert('failed to initialize');
+                });                
+            }
+        </script>
+        <h1 style="white-space:pre">Bienvenue sur notre
+             serveur d'inférence Triton Nvidia</h1>
+    </head>
+    <body onload="initKeycloak()">
+        <div id="albums">
+            </br>
+            <input id="studies_list" name="studies_list" hidden></input>
+            <h2>Liste des albums disponibles</h2>               
+        </br>
+            <button id="get_albums" onClick="btn_get_albums()" name="btn_get_studies" value="voir les examens médicaux associés"> voir les albums </button>
+            <button id="get_album" onClick="btn_get_studies()" name="btn_get_study" value="Validez la sélection" hidden> Validez l'album sélectionné </button>
+        </div>
+        <div id="studies" hidden>
+            </br>
+            <h2>Examens d'imagerie médicale disponibles</h2>
+            </br>
+            <input type="checkbox" id="checkAll" onClick="checkAll(this)" hidden> Tout sélectionner </imput>
+            </br></br>  
+            <button id="get_datas" onClick="btn_get_datas()" name="btn_get_studies" value="voir les examens médicaux associés" > Valider les examens médicaux sélectionnés </button>
+        </div>              
+        <div>
+        </br>
+        <a href ='https://kheops.ehealth.hevs.ch/albums' hidden>Liste d'albums</a>
+        </div>
+        <script src = "/static/kheops_studies_recovery.js" ></script>
+        <script>
+            function checkAll(source) {
+              checkboxes = document.getElementsByName('study');
+              for(var i=0, n=checkboxes.length;i<n;i++) {
+                checkboxes[i].checked = source.checked;
+              }
+            }
+        </script>
+        <form action="http://localhost:5000/models" method="post">
+            <input id='albumID' name='album' hidden/>
+            <input id="get_modelsID" type = "submit" value="Allez vers la sélection d'un modèle d'inférence" hidden/>
+        </form>
+    </body>    
+</html>

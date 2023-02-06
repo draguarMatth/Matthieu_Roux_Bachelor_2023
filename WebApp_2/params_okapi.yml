@@ -1,0 +1,17 @@
+general:
+  submodalities: False
+  combine_segmentation: True
+  study_processor: "studyprocessor_deep"
+  patch_size: 128
+
+volume_preprocessing:
+  common:
+    bspline_resampler:
+      resampling_spacing: [1.0, 1.0, 1.0]
+      order: 3
+  default:
+
+mask_preprocessing:
+  default:
+    binary_bspline_resampler:
+      order: 3

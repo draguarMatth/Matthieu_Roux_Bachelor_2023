@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="content-type" content="text/html; charset='utf-8'">
+        <title>Triton HESSO 2023</title>
+        <h1 style="white-space:pre">Bienvenue sur notre
+            Serveur d'inférence Triton Nvidia</h1>
+    </head>
+    <body>
+        </br>
+        </br>
+        <h1>Résultats de l'analyse DF</h1>
+    </br>
+        <div>
+            <h2>Modèle DF : {{ model_name }} </h2>
+            <h3>version du modèle : {{ model_version }} </h3>
+            <h2>Album à analyser :  {{ album }} </h2>
+        </div>
+        <p>
+            <a style="font-size : 20px" href="http://localhost:5000" >Exécuter une nouvelle inférence</a>
+            </br></br>
+                <a style="font-size : 20px" href="{{csv}}" name="{{csv}}" download>Enregistrer les résultats</a>
+        </p>            
+        </br>
+        <div>
+            <table>
+                <tbody>
+                {% for item in results%}
+                    <tr>                    
+                        {% for data in item %}
+                            <td> {{ data }}</td>
+                        {% endfor %}                       
+                    </tr>                       
+                {% endfor %}
+                </tbody>       
+            </table>
+        </div>
+    </body>
+</html>

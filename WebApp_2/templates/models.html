@@ -1,0 +1,24 @@
+<!doctype html>
+<html>
+    <head>
+        <meta http-equiv="content-type" content="text/html; charset='utf-8'">
+        <title>Triton HESSO 2023</title>
+        <h1 style="white-space:pre">Bienvenue sur notre
+            serveur d'inférence Triton Nvidia</h1>
+    </head>
+    <body>
+        <form action="http://127.0.0.1:5000/resultats" method="post">
+            </br>
+            <h2>Liste des modèles pour deep features disponible</h2>
+            {% for row in list_models %}
+                <p style="padding-left:20px"> 
+                    <input type="radio" name="model_name" value="{{ row }}" /> {{ row }}
+                </p>
+            {% endfor %}
+            </br>
+        </br>
+            <input id='album' name='album' value="{{album}}" hidden></input>
+            <input type="submit" value="Exécuter l'inférence" /></input>
+        </form>
+    </body>
+</html>
