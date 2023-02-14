@@ -63,9 +63,6 @@ function btn_get_datas(){
 			newstudy = {patient_id: study[0].toString(), study_id : study[1].toString()};
 			studies.push(newstudy);
 
-			console.log("STUDY ID : " + study[1].toString());
-			console.log("PATIENT ID : " + study[0].toString());
-
 		}
 	}
 

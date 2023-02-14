@@ -13,9 +13,10 @@ This module was used to transform model with less deep layers
 and save it in .pb format to be compatible with Triton NVidia criterias acceptance
 """
 
-path_scan = "MatthieuR/vm/OKAPY_Nii/output/HN-CHUM-006__GTVt__RTSTRUCT__CT.nii.gz"
-save_newModel = "MatthieuR/vm/Model/Model_saved/QuantImage_DL_4L_44_Keras"
-saved_Model = "MatthieuR/vm/Model/Model_saved/QuantImage_DL_4L_43"
+path_scan = "/home/matthieu-roux/MatthieuR/vm/model_preparation/OKAPY_Nii/output/HN-CHUM-006__CT.nii.gz"
+old_Model_weight = "/home/matthieu-roux/MatthieuR/vm/model_preparation/DL_Models/3dcnn.h5"
+saved_new_Keras_Model = "/home/matthieu-roux/MatthieuR/vm/model_preparation/DL_Models/bachelor_DL_layers_DF.h5"
+saved_Model = "/home/matthieu-roux/MatthieuR/vm/model_preparation/DL_Models/bachelor_DL_layers_DF/1/model"
 
 
 def save_Model (TheModel, path):
@@ -31,7 +32,8 @@ def savedModel (TheModel,path):
     return tf.saved_model.save(TheModel,path)
 
 #reconstruct model
-reconstructed_model = tf.saved_model.load(saved_Model)
+reconstructed_model = get_model()
+reconstructed_model.load_weights(old_Model_weight)
 
 #verifiy model architecture and analyse model deep layers
 reconstructed_model.summary()
@@ -43,20 +45,20 @@ input = process_NIFTI_input.process_scan(path_scan)
 # verify and analyse layers (-4) of given model
 feature_maps1 = reconstructed_model.predict(np.expand_dims(input, axis=0))
 print(reconstructed_model.name,feature_maps1.shape)
-print(model.layers[-4].name,feature_maps1.shape)
+print(reconstructed_model.layers[-4].name,feature_maps1.shape)
 print(reconstructed_model.name,(np.expand_dims(input, axis=1)).shape)
 
 # construct new model with deeper end layer and verify it
-model = keras.Model(inputs=reconstructed_model.inputs, outputs=reconstructed_model.layers[-4].output, name = "QuantImage_DL_4L")
+model = keras.Model(inputs=reconstructed_model.inputs, outputs=reconstructed_model.layers[-4].output, name = "bachelor_DL_layers_DF")
 feature_maps2 = model.predict(np.expand_dims(input, axis=0)).squeeze()
 print(reconstructed_model.layers[-4].name,feature_maps2.shape)
-print(model.layers[-4].name,(np.expand_dims(output, axis=0)).shape)
+print(model.layers[-4].name,(np.expand_dims(input, axis=0)).shape)
 
 # architecture new model verification
 model.summary()
 
 # saved new model in 2 formats
-save_Model (model, saveKeras_newModel)
+save_Model (model, saved_new_Keras_Model)
 savedModel (model,saved_Model)
 
 

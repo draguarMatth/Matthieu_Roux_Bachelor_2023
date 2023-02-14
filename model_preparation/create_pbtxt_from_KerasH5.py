@@ -11,8 +11,8 @@ from tensorflow.python.util import compat
 Use to create pbtxt config file from Keras (.h5) model 
 """
 
-INPUT_SAVED_MODEL_DIR = './Model/trained/model_name.h5'
-OUTPUT_SAVED_MODEL_DIR = "./Model/Converted/"
+INPUT_SAVED_MODEL_DIR = './DL_Models/bachelor_DL_layers_DF.h5'
+OUTPUT_SAVED_MODEL_DIR = "./DL_Models/bachelor_DL_layers_DF/1"
  
 
 #path of the directory where you want to save your model
