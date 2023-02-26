@@ -81,17 +81,18 @@ def save_csv (deep_features, albumID, destination_folder = temp_csv_folder):
     zipCSV = ZipFile(zipName, 'w')
   
     for modality in modalities :
-        r = []
-        for roi in rois:
-            csvFile = destination_folder + "/" + albumID + "_" + modality+ "_" + roi + ".csv"
+        cpt = 0
 
+        for roi in rois:
+            r = []
+            csvFile = "./" + albumID + "_" + modality+ "_" + roi + ".csv"
             for results in deep_features :
                 for result in results:
                     if modality in result[1] and roi in result[2] :
                         r.append(result)
+            cpt+=1
 
             if  len(r) != 0:
-
                 with open(csvFile, 'w', newline='') as csv_f :
                     writer = csv.writer(csv_f, delimiter=';')
 
@@ -99,21 +100,22 @@ def save_csv (deep_features, albumID, destination_folder = temp_csv_folder):
                         writed = True
 
                     for data in r :               
-                            if (writed == False):
-                                line_result= []
-                                for i in range (3, len(data)):
-                                    cpt = 1
-                                    line_result=["PatientID", "Modality", "ROI"]  
-                                    line_result.append("Feat_" + str(cpt))
-                                    cpt += 1
-                                line_result =[line_result]
-                                writer.writerows(line_result)
-                                writed = True
-                            writer.writerows([data])
+                        if (writed == False):
+                            line_result= []
+                            for i in range (3, len(data)):
+                                cpt = 1
+                                line_result=["PatientID", "Modality", "ROI"]  
+                                line_result.append("Feat_" + str(cpt))
+                                cpt += 1
+                            line_result =[line_result]
+                            writer.writerows(line_result)
+                            writed = True
+                        writer.writerows([data])
                     csv_f.close()
-                zipCSV.write(csvFile)
+                    zipCSV.write(os.path.relpath(csvFile))
+                    os.remove(csvFile)
     zipCSV.close()
 
+    
     return zipName
-
 

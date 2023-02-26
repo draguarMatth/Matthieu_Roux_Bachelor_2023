@@ -29,7 +29,7 @@ Installation du serveur Triton :
 
 	3) Créé le docker du serveur Triton :
 
-		docker -d run  --gpus=all --rm --net=host -v ${PWD}/docs/examples/model_repository:/models --name triton-server nvcr.io/nvidia/tritonserver:22.12-py3 tritonserver --model-repository=/models
+		docker -d run  --gpus=all --rm --net=host -v ${PWD}/docs/examples/model_repository:/models --name triton-server nvcr.io/nvidia/tritonserver:22.12-py3 tritonserver --model-repository=/models --model-control-mode="poll"
 		
 		>>> 
 		    cette ligne de commande, on constate qu’elle ordonne le fonctionnement du conteneur en arrière-plan (-d), 
@@ -37,7 +37,8 @@ Installation du serveur Triton :
 			de supprimer le conteneur (-rm) lorsque qu’une instruction explicite d’arrêt du conteneur est ordonnée (e.g., appui sur les touches « CTRL » + « C »), 
 			d’utiliser le réseau local (--net=host), d’attacher le dossier local « model_repository » à l’intérieur du dossier où l’on se trouve (-v ${PWD}/…/model_repository) 
 			et de nommer ce dossier « models » pour le serveur Triton ; la suite de la commande permet de donner un nom au conteneur (--name <nom_du_conteneur>), 
-			de dire quel conteneur doit être démarré et enfin de dire au serveur que le dossier de référence pour les modèles correspond à notre dossier « models » déclarer plus en avant dans la commande.
+			de dire quel conteneur doit être démarré et enfin de dire au serveur que le dossier de référence pour les modèles correspond à notre dossier « models » déclarer plus en avant dans la commande,
+			de permettre la mise à jour automatique ("poll") des models à disposition dans le dossier "models".
 		<<<	
 
 	4) Démarrer le Docker qui vient d'être créé :

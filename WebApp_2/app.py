@@ -3,8 +3,6 @@ from flask import Flask, render_template, request
 import tritonclient.grpc as grpcclient, tritonclient.grpc.model_config_pb2 as mc, tritonclient.http as httpclient
 import quantimageDL
 from create_NIFTI import toNifti
-import json
-import csv
 import requests
 import utils
 
@@ -25,6 +23,9 @@ global triton_client
     
 @app.route("/")
 def home():
+    utils.clean_folder(temp_dicoms)
+    utils.clean_folder(temp_nifti)
+    utils.clean_folder(temp_csv_results)
     
     return render_template('connect_kheops.html')
 
